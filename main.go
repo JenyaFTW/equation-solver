@@ -6,6 +6,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"bufio"
 )
 
 func parseFile(fileName string) []float64 {
@@ -43,30 +44,31 @@ func parseFile(fileName string) []float64 {
 
 func parseStdIn() []float64 {
 	var eqParams []float64
-
 	argNames := []string{"a", "b", "c"}
 
+	consoleReader := bufio.NewReader(os.Stdin)
 	for len(eqParams) != 3 {
-		var idx int
-		if len(eqParams) > 0 {
-			idx = len(eqParams) - 1
-		} else {
-			idx = 0
-		}
+		fmt.Printf("%s = ", argNames[len(eqParams)])
 
-		var input float64
-		fmt.Printf("%s = ", argNames[idx])
-		if _, err := fmt.Scanln(&input); err != nil {
+		input, err := consoleReader.ReadString('\n')
+		if err != nil {
 			fmt.Fprintf(os.Stderr, "Error: %s\n", err)
 			continue
 		}
 
-		if input == 0 && idx == 0 {
-			fmt.Fprint(os.Stderr, "Error: Value cannot be 0\n")
+		input = strings.Replace(input, "\n", "", -1)
+		valFloat, err := strconv.ParseFloat(input, 64)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Error: %s\n", err)
 			continue
 		}
 
-		eqParams = append(eqParams, input)
+		if valFloat == 0 && len(eqParams) == 0 {
+			fmt.Fprint(os.Stderr, "Error: a cannot be 0\n")
+			continue
+		}
+
+		eqParams = append(eqParams, valFloat)
 	}
 
 	return eqParams
