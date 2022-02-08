@@ -17,7 +17,8 @@ func parseFile(fileName string) []float64 {
 		os.Exit(1)
 	}
 
-	fileLines := strings.Split(string(data), "\n")
+	stringData := strings.Replace(string(data), "\r", "\n", -1)
+	fileLines := strings.Split(stringData, "\n")
 
 	values := strings.Split(fileLines[0], " ")
 	if len(values) != 3 {
