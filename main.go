@@ -75,7 +75,7 @@ func solveEquation(eqParams []float64) []float64 {
 	eqDiscriminant := eqParams[1]*eqParams[1] - 4*eqParams[0]*eqParams[2]
 
 	if eqDiscriminant == 0 {
-		singleRoot := -eqParams[1] / 2 * eqParams[0]
+		singleRoot := -eqParams[1] / (2 * eqParams[0])
 		eqRoots = append(eqRoots, singleRoot)
 	} else if eqDiscriminant > 0 {
 		firstRoot := (-eqParams[1] + math.Sqrt(eqDiscriminant)) / (2 * eqParams[0])
