@@ -43,17 +43,23 @@ func parseStdIn() []float64 {
 	var eqParams []float64
 
 	argNames := []string{"a", "b", "c"}
-	for idx, argName := range argNames {
+
+	for len(eqParams) != 3 {
+		var idx int
+		if len(eqParams) > 0 {
+			idx = len(eqParams) - 1
+		} else {
+			idx = 0
+		}
+
 		var input float64
-		fmt.Printf("%s = ", argName)
+		fmt.Printf("%s = ", argNames[idx])
 		if _, err := fmt.Scanln(&input); err != nil {
 			fmt.Fprintf(os.Stderr, "Error: %s\n", err)
-			os.Exit(1)
 		}
 
 		if input == 0 && idx == 0 {
 			fmt.Fprint(os.Stderr, "Error: Value cannot be 0\n")
-			os.Exit(1)
 		}
 
 		eqParams = append(eqParams, input)
