@@ -30,7 +30,7 @@ func parseFile(fileName string) []float64 {
 		}
 
 		if valFloat == 0 && idx == 0 {
-			fmt.Fprint(os.Stderr, "Error: Value cannot be 0\n")
+			fmt.Fprint(os.Stderr, "Error: a cannot be 0\n")
 			os.Exit(1)
 		}
 
