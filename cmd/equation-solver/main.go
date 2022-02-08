@@ -64,7 +64,16 @@ func parseStdIn() []float64 {
 
 func solveEquation(eqParams []float64) []float64 {
 	var eqRoots []float64
-	eqDiscriminant := math.Pow(2, eqParams[1]) - 4*eqParams[0]*eqParams[2]
+	eqDiscriminant := eqParams[1]*eqParams[1] - 4*eqParams[0]*eqParams[2]
+
+	if eqDiscriminant == 0 {
+		singleRoot := -eqParams[1] / 2 * eqParams[0]
+		eqRoots = append(eqRoots, singleRoot)
+	} else if eqDiscriminant > 0 {
+		firstRoot := (-eqParams[1] + math.Sqrt(eqDiscriminant)) / (2 * eqParams[0])
+		secondRoot := (-eqParams[1] - math.Sqrt(eqDiscriminant)) / (2 * eqParams[0])
+		eqRoots = append(eqRoots, firstRoot, secondRoot)
+	}
 
 	return eqRoots
 }
@@ -88,4 +97,8 @@ func main() {
 
 	fmt.Printf("Equation is: (%f) x^2 + (%f) x + (%f) = 0\n", eqParams[0], eqParams[1], eqParams[2])
 	fmt.Printf("There are %d root(s)\n", len(eqRoots))
+
+	for idx, val := range eqRoots {
+		fmt.Printf("x%d = %f\n", idx+1, val)
+	}
 }
