@@ -29,12 +29,35 @@ func parseFile(fileName string) []float64 {
 		}
 
 		if valFloat == 0 {
-			fmt.Fprint(os.Stderr, "Value cannot be 0\n")
+			fmt.Fprint(os.Stderr, "Error: Value cannot be 0\n")
 			os.Exit(1)
 		}
 
 		eqParams = append(eqParams, valFloat)
 	}
+	return eqParams
+}
+
+func parseStdIn() []float64 {
+	var eqParams []float64
+
+	argNames := []string{"a", "b", "c"}
+	for _, argName := range argNames {
+		var input float64
+		fmt.Printf("%s = ", argName)
+		if _, err := fmt.Scanln(&input); err != nil {
+			fmt.Fprintf(os.Stderr, "Error: %s\n", err)
+			os.Exit(1)
+		}
+
+		if input == 0 {
+			fmt.Fprint(os.Stderr, "Error: Value cannot be 0\n")
+			os.Exit(1)
+		}
+
+		eqParams = append(eqParams, input)
+	}
+
 	return eqParams
 }
 
@@ -48,7 +71,7 @@ func main() {
 	if fileName != "" {
 		eqParams = parseFile(fileName)
 	} else {
-
+		eqParams = parseStdIn()
 	}
 
 	fmt.Printf("Equation is: (%f) x^2 + (%f) x + (%f) = 0", eqParams[0], eqParams[1], eqParams[2])
