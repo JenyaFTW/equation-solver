@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"os"
 	"strconv"
 	"strings"
@@ -61,6 +62,13 @@ func parseStdIn() []float64 {
 	return eqParams
 }
 
+func solveEquation(eqParams []float64) []float64 {
+	var eqRoots []float64
+	eqDiscriminant := math.Pow(2, eqParams[1]) - 4*eqParams[0]*eqParams[2]
+
+	return eqRoots
+}
+
 func main() {
 	var eqParams []float64
 	var eqRoots []float64
@@ -75,6 +83,8 @@ func main() {
 	} else {
 		eqParams = parseStdIn()
 	}
+
+	eqRoots = solveEquation(eqParams)
 
 	fmt.Printf("Equation is: (%f) x^2 + (%f) x + (%f) = 0\n", eqParams[0], eqParams[1], eqParams[2])
 	fmt.Printf("There are %d root(s)\n", len(eqRoots))
