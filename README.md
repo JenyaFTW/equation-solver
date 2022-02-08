@@ -15,6 +15,10 @@ $ go get -u github.com/JenyaFTW/equation-solver
 
 Make sure your `PATH` includes `$GOPATH/bin` or else `equation-solver` command will not work
 
+## Build using source
+
+Make sure to have this repository cloned and open and run `go install`
+
 ## Usage
 
 This application includes two modes: interactive and file modes
