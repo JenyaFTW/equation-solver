@@ -56,10 +56,12 @@ func parseStdIn() []float64 {
 		fmt.Printf("%s = ", argNames[idx])
 		if _, err := fmt.Scanln(&input); err != nil {
 			fmt.Fprintf(os.Stderr, "Error: %s\n", err)
+			continue
 		}
 
 		if input == 0 && idx == 0 {
 			fmt.Fprint(os.Stderr, "Error: Value cannot be 0\n")
+			continue
 		}
 
 		eqParams = append(eqParams, input)
