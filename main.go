@@ -16,7 +16,9 @@ func parseFile(fileName string) []float64 {
 		os.Exit(1)
 	}
 
-	values := strings.Split(string(data), " ")
+	fileLines := strings.Split(string(data), "\n")
+
+	values := strings.Split(fileLines[0], " ")
 	if len(values) != 3 {
 		fmt.Fprint(os.Stderr, "Error: Invalid file format, expected 3 values\n")
 		os.Exit(1)
